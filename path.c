@@ -23,15 +23,16 @@ int isExecutable(info_t *info, char *path)
  * @source: source string
  * @start: starting index
  * @end: ending index
+ * @buffer: buffer to store the result
  *
  * Return: pointer to the new buffer
  */
-char *copySubstring(char *source, int start, int end)
+char *copySubstring(char *source, int start, int end, char *buffer)
 {
-    static char buffer[1024];
     int bufferIndex = 0;
+    int i;
 
-    for (int i = start; i < end; i++)
+    for (i = start; i < end; i++)
     {
         if (source[i] != ':')
             buffer[bufferIndex++] = source[i];
@@ -53,23 +54,26 @@ char *findCommandInPath(info_t *info, char *pathStr, char *command)
 {
     int currentIndex = 0;
     char *path;
+    char buffer[1024];
 
     if (!pathStr)
         return NULL;
 
-    if ((_strlen(command) > 2) && starts_with(command, "./"))
+    if ((custom_strlen(command) > 2) && startsWith(command, "./"))
     {
         if (isExecutable(info, command))
             return command;
     }
 
-    for (int i = 0; ; i++)
+    for (int i = 0; pathStr[i]; i++)
     {
-        if (!pathStr[i] || pathStr[i] == ':')
+        if (pathStr[i] == ':')
         {
-            path = copySubstring(pathStr, currentIndex, i);
+            path = copySubstring(pathStr, currentIndex, i, buffer);
             if (!*path)
+            {
                 _strcat(path, command);
+            }
             else
             {
                 _strcat(path, "/");
@@ -79,10 +83,7 @@ char *findCommandInPath(info_t *info, char *pathStr, char *command)
             if (isExecutable(info, path))
                 return path;
 
-            if (!pathStr[i])
-                break;
-
-            currentIndex = i;
+            currentIndex = i + 1;
         }
     }
 
