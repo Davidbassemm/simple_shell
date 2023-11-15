@@ -48,11 +48,15 @@ int custom_env(char **arguments)
  */
 int custom_exit(char **args) 
 {
-    if (args[1]) {
-        exit(atoi(args[1]));
-    } else {
-        exit(0);
-    }
+
+	if (arguments[1])
+	{
+		return (atoi(arguments[1]));
+	}
+	else
+	{
+	return (0);
+	}
 }
 
 /**
