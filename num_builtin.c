@@ -1,6 +1,6 @@
 #include "main.h"
 /**
- * num_bulitin - calc the num cmd
+ * num_builtin - calc the num cmd
  * @bulitin: have the cmd
  *
  * Return: the result
