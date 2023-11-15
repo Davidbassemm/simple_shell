@@ -85,7 +85,7 @@ int my_help(char **arguments)
 	printf("A basic shell imolementation.\n\n");
 	printf("Duilt-in cmd:\n");
 
-	for (c = 0 ; c < num_bulitin(bulitin) ; c++)
+	for (c = 0 ; c < num_builtin(bulitin) ; c++)
 	{
 		printf(" %s - %s\n", bulitin[c], des[c]);
 	}
