@@ -5,7 +5,7 @@
  *
  * Return: the result
  */
-int num_bulitin(char **bulitin)
+int num_builtin(char **bulitin)
 {
 	int count = 0;
 

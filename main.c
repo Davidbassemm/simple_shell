@@ -10,11 +10,11 @@ int main(int argc, char **argv)
 {
 	if (isatty(STDIN_FILENO) == 1)
 	{
-		interactive();
+		inter();
 	}
 	else
 	{
-		non_interactive();
+		non_inter();
 	}
 	(void)(argc);
 	(void)(argv);

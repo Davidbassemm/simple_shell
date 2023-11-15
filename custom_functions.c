@@ -1,0 +1,89 @@
+#include "main.h"
+/**
+ * custom_cd - function my cd
+ * @arguments: have the command
+ *
+ * Return: 1 on success
+ */
+int custom_cd(char **arguments)
+{
+	if (arguments[1] == NULL)
+	{
+		fprintf(stderr, "expected argument to 'cd'\n");
+	}
+	else
+	{
+		if (chdir(arguments[1]) != 0)
+		{
+			perror("error in my_cd");
+		}
+	}
+	return (-1);
+}
+/**
+ * custom_env - function that prints env variable
+ * @arguments: arguments
+ *
+ * Return: 1 on success 0 in otherwise
+ */
+int custom_env(__attribute__((unused)) char **args) {
+    int c = 0;
+    while (environ[c]) {
+        printf("%s\n", environ[c]);
+        c++;
+    }
+    return 1;
+}
+/**
+ * custom_exit - function
+ * @arguments: have the commit
+ *
+ * Return: 0
+ */
+int custom_exit(char **arguments) 
+{
+
+	if (arguments[1])
+	{
+		return (atoi(arguments[1]));
+	}
+	else
+	{
+	return (0);
+	}
+}
+
+/**
+ * custom_help - function helps the user
+ * @arguments: have the command
+ *
+ * Return: 1 on success
+ */
+int custom_help(char **arguments)
+{
+	int c;
+
+
+	char *bulitin[13] = {
+		"cd",
+		"env",
+		"help",
+		"exit"
+	};
+	char *des[] = {
+		"change the current dir",
+		"display inf about the blitin comd",
+		"exit the shell:"
+		};
+	(void)arguments;
+	printf("simple shell\n");
+	printf("------------\n");
+	printf("A basic shell imolementation.\n\n");
+	printf("Duilt-in cmd:\n");
+
+	for (c = 0 ; c < num_builtin(bulitin) ; c++)
+	{
+		printf(" %s - %s\n", bulitin[c], des[c]);
+	}
+	return (1);
+}
