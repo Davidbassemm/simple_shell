@@ -1,6 +1,6 @@
 #include "main.h"
 /**
- * parse_line - split the line input
+ * split_line - split the line input
  * @line: string to be split
  *
  * Return: the tokens
