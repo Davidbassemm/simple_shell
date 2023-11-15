@@ -1,91 +1,86 @@
 #include "shell.h"
 
 /**
- * isExecutable - checks if a file is an executable command
- * @info: information structure
+ * is_cmd - determines if a file is an executable command
+ * @info: the info struct
  * @path: path to the file
  *
  * Return: 1 if true, 0 otherwise
  */
-int isExecutable(info_t *info, char *path)
+int is_cmd(info_t *info, char *path)
 {
-    struct stat fileStat;
+	struct stat st;
 
-    (void)info;
-    if (!path || stat(path, &fileStat))
-        return 0;
+	(void)info;
+	if (!path || stat(path, &st))
+		return (0);
 
-    return S_ISREG(fileStat.st_mode);
+	if (st.st_mode & S_IFREG)
+	{
+		return (1);
+	}
+	return (0);
 }
 
 /**
- * copySubstring - copies a substring from a string
- * @source: source string
+ * dup_chars - duplicates characters
+ * @pathstr: the PATH string
  * @start: starting index
- * @end: ending index
- * @buffer: buffer to store the result
+ * @stop: stopping index
  *
- * Return: pointer to the new buffer
+ * Return: pointer to new buffer
  */
-char *copySubstring(char *source, int start, int end, char *buffer)
+char *dup_chars(char *pathstr, int start, int stop)
 {
-    int bufferIndex = 0;
-    int i;
+	static char buf[1024];
+	int i = 0, k = 0;
 
-    for (i = start; i < end; i++)
-    {
-        if (source[i] != ':')
-            buffer[bufferIndex++] = source[i];
-    }
-
-    buffer[bufferIndex] = '\0';
-    return buffer;
+	for (k = 0, i = start; i < stop; i++)
+		if (pathstr[i] != ':')
+			buf[k++] = pathstr[i];
+	buf[k] = 0;
+	return (buf);
 }
 
 /**
- * findCommandInPath - finds the command in the PATH string
- * @info: information structure
- * @pathStr: the PATH string
- * @command: the command to find
+ * find_path - finds this cmd in the PATH string
+ * @info: the info struct
+ * @pathstr: the PATH string
+ * @cmd: the cmd to find
  *
- * Return: full path of the command if found, or NULL
+ * Return: full path of cmd if found or NULL
  */
-char *findCommandInPath(info_t *info, char *pathStr, char *command)
+char *find_path(info_t *info, char *pathstr, char *cmd)
 {
-    int currentIndex = 0;
-    char *path;
-    char buffer[1024];
+	int i = 0, curr_pos = 0;
+	char *path;
 
-    if (!pathStr)
-        return NULL;
-
-    if ((custom_strlen(command) > 2) && startsWith(command, "./"))
-    {
-        if (isExecutable(info, command))
-            return command;
-    }
-
-    for (int i = 0; pathStr[i]; i++)
-    {
-        if (pathStr[i] == ':')
-        {
-            path = copySubstring(pathStr, currentIndex, i, buffer);
-            if (!*path)
-            {
-                _strcat(path, command);
-            }
-            else
-            {
-                _strcat(path, "/");
-                _strcat(path, command);
-            }
-
-            if (isExecutable(info, path))
-                return path;
-
-            currentIndex = i + 1;
-        }
-    }
-
-    return NULL;
+	if (!pathstr)
+		return (NULL);
+	if ((_strlen(cmd) > 2) && starts_with(cmd, "./"))
+	{
+		if (is_cmd(info, cmd))
+			return (cmd);
+	}
+	while (1)
+	{
+		if (!pathstr[i] || pathstr[i] == ':')
+		{
+			path = dup_chars(pathstr, curr_pos, i);
+			if (!*path)
+				_strcat(path, cmd);
+			else
+			{
+				_strcat(path, "/");
+				_strcat(path, cmd);
+			}
+			if (is_cmd(info, path))
+				return (path);
+			if (!pathstr[i])
+				break;
+			curr_pos = i;
+		}
+		i++;
+	}
+	return (NULL);
 }
