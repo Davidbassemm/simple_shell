@@ -6,7 +6,7 @@
  *
  * Return: integer length of string
  */
-int _strlen(char *s)
+int string_length(char *s)
 {
 	int i = 0;
 
@@ -25,7 +25,7 @@ int _strlen(char *s)
  *
  * Return: negative if s1 < s2, positive if s1 > s2, zero if s1 == s2
  */
-int _strcmp(char *s1, char *s2)
+int string_compare(char *s1, char *s2)
 {
 	while (*s1 && *s2)
 	{
@@ -62,7 +62,7 @@ char *starts_with(const char *haystack, const char *needle)
  *
  * Return: pointer to destination buffer
  */
-char *_strcat(char *dest, char *src)
+char *string_cat(char *dest, char *src)
 {
 	char *ret = dest;
 
@@ -81,7 +81,7 @@ char *_strcat(char *dest, char *src)
  *
  * Return: pointer to destination
  */
-char *_strcpy(char *dest, char *src)
+char *string_copy(char *dest, char *src)
 {
 	int i = 0;
 
@@ -102,7 +102,7 @@ char *_strcpy(char *dest, char *src)
  *
  * Return: pointer to the duplicated string
  */
-char *_strdup(const char *str)
+char *string_dup(const char *str)
 {
 	int length = 0;
 	char *ret;
@@ -125,7 +125,7 @@ char *_strdup(const char *str)
  *
  * Return: Nothing
  */
-void _puts(char *str)
+void put(char *str)
 {
 	int i = 0;
 
@@ -167,7 +167,7 @@ int _putchar(char c)
  *@n: the amount of characters to be copied
  *Return: the concatenated string
  */
-char *_strncpy(char *dest, char *src, int n)
+char *string_cpyy(char *dest, char *src, int n)
 {
 	int i, j;
 	char *s = dest;
@@ -197,7 +197,7 @@ char *_strncpy(char *dest, char *src, int n)
  *@n: the amount of bytes to be maximally used
  *Return: the concatenated string
  */
-char *_strncat(char *dest, char *src, int n)
+char *string_catt(char *dest, char *src, int n)
 {
 	int i, j;
 	char *s = dest;
@@ -223,7 +223,7 @@ char *_strncat(char *dest, char *src, int n)
  *@c: the character to look for
  *Return: (s) a pointer to the memory area s
  */
-char *_strchr(char *s, char c)
+char *string_chrr(char *s, char c)
 {
 	do {
 		if (*s == c)
