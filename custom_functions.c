@@ -46,17 +46,15 @@ int custom_env(char **arguments)
  *
  * Return: 0
  */
-int custom_exit(char **arguments)
+int custom_exit(char **args) 
 {
-	if (arguments[1])
-	{
-		return (atoi(arguments[1]));
-	}
-	else
-	{
-	return (0);
-	}
+    if (args[1]) {
+        exit(atoi(args[1]));
+    } else {
+        exit(0);
+    }
 }
+
 /**
  * custom_help - function helps the user
  * @arguments: have the command

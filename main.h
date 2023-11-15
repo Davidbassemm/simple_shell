@@ -22,5 +22,4 @@ void inter(void);
 void non_inter(void);
 char *read_stream(void);
 
-
 #endif
