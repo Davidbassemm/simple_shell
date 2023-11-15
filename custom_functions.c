@@ -1,11 +1,11 @@
 #include "main.h"
 /**
- * custom_cd - function my cd
+ * my_cd - function my cd
  * @arguments: have the command
  *
  * Return: 1 on success
  */
-int custom_cd(char **arguments)
+int my_cd(char **arguments)
 {
 	if (arguments[1] == NULL)
 	{
@@ -21,28 +21,33 @@ int custom_cd(char **arguments)
 	return (-1);
 }
 /**
- * custom_env - function that prints env variable
+ * my_env - function that prints env variable
  * @arguments: arguments
  *
  * Return: 1 on success 0 in otherwise
  */
-int custom_env(__attribute__((unused)) char **args) {
-    int c = 0;
-    while (environ[c]) {
-        printf("%s\n", environ[c]);
-        c++;
-    }
-    return 1;
+int my_env(char **arguments)
+{
+	int c = 0;
+	(void)(**arguments);
+
+	while (environ[c])
+	{
+		write(STDOUT_FILENO, environ[c], strlen(environ[c]));
+		write(STDOUT_FILENO, "\n", 1);
+		c++;
+	}
+	return (-1);
+
 }
 /**
- * custom_exit - function
+ * my_exit - function
  * @arguments: have the commit
  *
  * Return: 0
  */
-int custom_exit(char **arguments) 
+int my_exit(char **arguments)
 {
-
 	if (arguments[1])
 	{
 		return (atoi(arguments[1]));
@@ -52,14 +57,13 @@ int custom_exit(char **arguments)
 	return (0);
 	}
 }
-
 /**
- * custom_help - function helps the user
+ * my_help - function helps the user
  * @arguments: have the command
  *
  * Return: 1 on success
  */
-int custom_help(char **arguments)
+int my_help(char **arguments)
 {
 	int c;
 
@@ -81,7 +85,7 @@ int custom_help(char **arguments)
 	printf("A basic shell imolementation.\n\n");
 	printf("Duilt-in cmd:\n");
 
-	for (c = 0 ; c < num_builtin(bulitin) ; c++)
+	for (c = 0 ; c < num_bulitin(bulitin) ; c++)
 	{
 		printf(" %s - %s\n", bulitin[c], des[c]);
 	}
