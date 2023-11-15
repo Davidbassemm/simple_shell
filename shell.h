@@ -163,17 +163,15 @@ int custom_print_decimal(int, int);
 char *custom_convert_number(long int, int, int);
 void custom_remove_comments(char *);
 
-/* builtin_emulators.c */
-int _myexit(info_t *);
-int _mycd(info_t *);
-int _myhelp(info_t *);
-
-/* builtin_emulators2.c */
-int _myhistory(info_t *);
-int _myalias(info_t *);
+/* emulator.c */
+int custom_exit(info_t *);
+int custom_cd(info_t *);
+int custom_help(info_t *);
+int custom_history(info_t *);
+int custom_unset_alias(info_t *);
 
 /* getline.c module */
-ssize_t get_input(info_t *);
+ssize_t input_buff(info_t *);
 int _getline(info_t *, char **, size_t *);
 void sigintHandler(int);
 
@@ -194,26 +192,24 @@ char **get_environ(info_t *);
 int _unsetenv(info_t *, char *);
 int _setenv(info_t *, char *, char *);
 
-/* file_io_functions.c */
-char *get_history_file(info_t *info);
-int write_history(info_t *info);
-int read_history(info_t *info);
-int build_history_list(info_t *info, char *buf, int linecount);
-int renumber_history(info_t *info);
+/* ioFunctions.c */
+char *custom_get_history_file(info_t *info);
+int custom_write_history(info_t *info);
+int custom_read_history(info_t *info);
+int custom_build_history_list(info_t *info, char *buf, int linecount);
+int custom_renumber_history(info_t *info);
 
-/* liststr.c module */
-list_t *add_node(list_t **, const char *, int);
-list_t *add_node_end(list_t **, const char *, int);
-size_t print_list_str(const list_t *);
-int delete_node_at_index(list_t **, unsigned int);
-void free_list(list_t **);
-
-/* liststr2.c module */
-size_t list_len(const list_t *);
-char **list_to_strings(list_t *);
-size_t print_list(const list_t *);
-list_t *node_starts_with(list_t *, char *, char);
-ssize_t get_node_index(list_t *, list_t *);
+/* listers.c module */
+list_t *custom_add_node(list_t **, const char *, int);
+list_t *custom_add_node_end(list_t **, const char *, int);
+size_t custom_print_list_str(const list_t *);
+int custom_delete_node_at_index(list_t **, unsigned int);
+void custom_free_list(list_t **);
+size_t custom_list_len(const list_t *);
+char **custom_list_to_strings(list_t *);
+size_t custom_print_list(const list_t *);
+list_t *custom_node_starts_with(list_t *, char *, char);
+ssize_t custom_get_node_index(list_t *, list_t *);
 
 /* chain.c */
 int is_chain(info_t *, char *, size_t *);
