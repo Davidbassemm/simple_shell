@@ -26,19 +26,13 @@ int custom_cd(char **arguments)
  *
  * Return: 1 on success 0 in otherwise
  */
-int custom_env(char **arguments)
-{
-	int c = 0;
-	(void)(**arguments);
-
-	while (environ[c])
-	{
-		write(STDOUT_FILENO, environ[c], strlen(environ[c]));
-		write(STDOUT_FILENO, "\n", 1);
-		c++;
-	}
-	return (-1);
-
+int custom_env(__attribute__((unused)) char **args) {
+    int c = 0;
+    while (environ[c]) {
+        printf("%s\n", environ[c]);
+        c++;
+    }
+    return 1;
 }
 /**
  * custom_exit - function
@@ -46,7 +40,7 @@ int custom_env(char **arguments)
  *
  * Return: 0
  */
-int custom_exit(char **args) 
+int custom_exit(char **arguments) 
 {
 
 	if (arguments[1])
