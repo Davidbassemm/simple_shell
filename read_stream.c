@@ -1,54 +1,49 @@
 #include "main.h"
-
 /**
- * read_stream - Read a line from the stream.
+ * read_stream - rad a line feom stream
  *
- * Return: Pointer to the read line.
+ * Return: pointer that points the read line
  */
 char *read_stream(void)
 {
-    int buffer_size = 1024;
-    int index = 0;
-    char *line;
-    int character;
+	int bsize = 1024;
+	int c = 0;
+	char *line;
+	int character;
 
-    line = malloc(sizeof(char) * buffer_size);
-    if (line == NULL)
-    {
-        fprintf(stderr, "Allocation error in read_stream");
-        exit(EXIT_FAILURE);
-    }
-
-    while (1)
-    {
-        character = getchar();
-        if (character == EOF)
-        {
-            free(line);
-            exit(EXIT_SUCCESS);
-        }
-        else if (character == '\n')
-        {
-            line[index] = '\0';
-            return line;
-        }
-        else
-        {
-            line[index] = character;
-        }
-
-        index++;
-
-        if (index >= buffer_size)
-        {
-            buffer_size += buffer_size;
-            line = realloc(line, buffer_size);
-            if (line == NULL)
-            {
-                fprintf(stderr, "Reallocation error in read_stream");
-                exit(EXIT_FAILURE);
-            }
-        }
-    }
+	line = malloc(sizeof(char) * bsize);
+	if (line == NULL)
+	{
+		fprintf(stderr, "alocation error in read_stream");
+		exit(EXIT_FAILURE);
+	}
+	while (1)
+	{
+		character = getchar();
+		if (character == EFO)
+		{
+			free(line);
+			exit(EXIT_SUCCESS);
+		}
+		else if (character == '\n')
+		{
+			line[c] = '\0';
+			return (line);
+		}
+		else
+		{
+			line[c] = character;
+		}
+		c++;
+		if (c >= bsize)
+		{
+			bsize += bsize;
+			line = realloc(line, bsize);
+			if (line == NULL)
+			{
+				fprintf(stderr, "reallocation error in read_stream");
+				exit(EXIT_FAILURE);
+			}
+		}
+	}
 }
-

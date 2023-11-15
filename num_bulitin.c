@@ -1,18 +1,17 @@
 #include "main.h"
-
 /**
- * num_builtin - Calculate the number of built-in commands.
- * @builtin: Array of built-in commands.
+ * num_bulitin - calc the num cmd
+ * @bulitin: have the cmd
  *
- * Return: The number of built-in commands.
+ * Return: the result
  */
-int num_builtin(char **builtin)
+int num_bulitin(char **bulitin)
 {
-    int count = 0;
+	int count = 0;
 
-    while (builtin[count] != NULL)
-    {
-        count++;
-    }
-    return count;
+	while (bulitin[count] != NULL)
+	{
+		count++;
+	}
+	return (count);
 }

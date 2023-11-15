@@ -1,35 +1,35 @@
 #include "main.h"
-
 /**
- * execute - Execute the command.
- * @arguments: Command arguments.
+ * execute - exe the cmd
+ * @arguments: have the comamnd
  *
- * Return: Result of the function launch.
+ * Return: the func lanuch
  */
 int execute(char **arguments)
 {
-    int (*builtin_func[])(char **) = {
-        &custom_cd,
-        &custom_env,
-        &custom_help,
-        &custom_exit
-    };
+	int (*bulitin_func[])(char **) = {
+		&my_cd,
+		&my_env,
+		&my_help,
+		&my_exit
+	};
 
-    char *builtin[] = {
-        "cd",
-        "env",
-        "help",
-        "exit"
-    };
+	char *bulitin[13] = {
+		"cd",
+		"env",
+		"help",
+		"exit"
+	};
+	int c;
 
-    if (arguments[0] == NULL)
-        return -1;
-
-    for (int c = 0; c < num_builtin(builtin); c++)
-    {
-        if (strcmp(arguments[0], builtin[c]) == 0)
-            return (*builtin_func[c])(arguments);
-    }
-
-    return launch(arguments);
+	if (arguments[0] == NULL)
+		return (-1);
+	for (c = 0 ; c < num_bulitin(bulitin) ; c++)
+	{
+		if (strcmp(arguments[0], bulitin[c]) == 0)
+		{
+			return ((*bulitin_func[c])(arguments));
+		}
+	}
+	return (launch(arguments));
 }
