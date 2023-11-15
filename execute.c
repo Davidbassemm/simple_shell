@@ -8,10 +8,10 @@
 int execute(char **arguments)
 {
 	int (*bulitin_func[])(char **) = {
-		&my_cd,
-		&my_env,
-		&my_help,
-		&my_exit
+		&custom_cd,
+		&custom_env,
+		&custom_help,
+		&custom_exit
 	};
 
 	char *bulitin[13] = {
