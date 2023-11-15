@@ -1,6 +1,6 @@
 #include "main.h"
 /**
- * non_interactive - cheac if in non interactive mode or not
+ * non_inter - cheac if in non interactive mode or not
  *
  * Return: noting
  */

@@ -1,6 +1,6 @@
 #include "main.h"
 /**
- * interactive - function cheac if interactive or not
+ * inter - function cheac if interactive or not
  *
  * Return: noting
  */
