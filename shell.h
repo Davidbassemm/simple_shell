@@ -1,48 +1,54 @@
-#ifndef SHELL_H
-#define SHELL_H
-
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
-#include <sys/types.h>
+#include <unistd.h>
 #include <sys/wait.h>
 
 #define MAX_INPUT_SIZE 1024
-#define MAX_ARG_SIZE 64
 
-/**
- * struct Command - Represents a command entered by the user
- * @args: An array of strings containing the command and its arguments
- */
-typedef struct Command {
-    char *args[MAX_ARG_SIZE];
-} Command;
+void execute_command(char *command);
 
-/**
- * struct Shell - Represents the state of the shell
- * @prompt: The shell prompt
- * @exit_flag: Flag to indicate if the shell should exit
- */
-typedef struct Shell {
-    char *prompt;
-    int exit_flag;
-} Shell;
+int main(void) {
+    char input[MAX_INPUT_SIZE];
 
-/**
- * Function Declarations
- */
+    while (1) {
+        printf("simple_shell$ ");
+        fgets(input, sizeof(input), stdin);
 
-/* main.c */
-void initialize_shell(Shell *shell);
-void display_prompt(const Shell *shell);
-void read_command(Command *cmd);
+        // Remove newline character from input
+        input[strcspn(input, "\n")] = '\0';
 
-/* execute.c */
-void execute_command(const Command *cmd);
+        // Check for exit command
+        if (strcmp(input, "exit") == 0) {
+            printf("Exiting shell...\n");
+            break;
+        }
 
-/* utils.c */
-void free_command(Command *cmd);
+        execute_command(input);
+    }
 
-#endif /* SHELL_H */
+    return 0;
+}
 
+void execute_command(char *command) {
+    pid_t pid, wpid;
+    int status;
+
+    pid = fork();
+
+    if (pid == 0) {
+        // Child process
+        if (execlp(command, command, NULL) == -1) {
+            perror("simple_shell");
+        }
+        exit(EXIT_FAILURE);
+    } else if (pid < 0) {
+        // Forking error
+        perror("simple_shell");
+    } else {
+        // Parent process
+        do {
+            wpid = waitpid(pid, &status, WUNTRACED);
+        } while (!WIFEXITED(status) && !WIFSIGNALED(status));
+    }
+}
