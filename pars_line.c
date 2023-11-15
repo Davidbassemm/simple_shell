@@ -6,7 +6,7 @@
  * Return: the tokens
  */
 
-char **split_line(char *line)
+char **parse_line(char *line)
 {
 	int bsize = 64;
 	int c = 0;

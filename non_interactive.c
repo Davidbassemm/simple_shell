@@ -1,19 +1,18 @@
 #include "main.h"
 /**
- * interactive - function cheac if interactive or not
+ * non_interactive - cheac if in non interactive mode or not
  *
  * Return: noting
  */
-void inter(void)
+void non_interactive(void)
 {
 	char *line;
 	char **arguments;
 	int stat = -1;
 
 	do {
-		printf("-> ");
 		line = read_line();
-		arguments = split_line(line);
+		arguments = parse_line(line);
 		stat = execute(arguments);
 		free(line);
 		free(arguments);
@@ -21,5 +20,5 @@ void inter(void)
 		{
 			exit(stat);
 		}
-		} while (stat == -1);
+	} while (stat == -1);
 }
