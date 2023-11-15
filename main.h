@@ -16,7 +16,7 @@ int custom_cd(char **arguments);
 int custom_env(char **arguments);
 int custom_help(char **arguments);
 int custom_exit(char **arguments);
-int num_bulitin(char **bulitin);
+int num_builtin(char **bulitin);
 int execute(char **arguments);
 void inter(void);
 void non_inter(void);

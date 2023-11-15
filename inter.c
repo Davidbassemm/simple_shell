@@ -1,25 +1,26 @@
 #include "main.h"
+
 /**
- * interactive - function cheac if interactive or not
+ * interactive - Check if interactive or not.
  *
- * Return: noting
+ * Return: Nothing.
  */
 void inter(void)
 {
-	char *line;
-	char **arguments;
-	int stat = -1;
+    char *input_line;
+    char **args;
+    int status = -1;
 
-	do {
-		printf("-> ");
-		line = read_line();
-		arguments = split_line(line);
-		stat = execute(arguments);
-		free(line);
-		free(arguments);
-		if (stat >= 0)
-		{
-			exit(stat);
-		}
-		} while (stat == -1);
+    do {
+        printf("-> ");
+        input_line = read_line();
+        args = split_line(input_line);
+        status = execute(args);
+        free(input_line);
+        free(args);
+        if (status >= 0)
+        {
+            exit(status);
+        }
+    } while (status == -1);
 }

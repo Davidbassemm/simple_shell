@@ -1,33 +1,34 @@
 #include "main.h"
-/**
- * launch - function that charge of prossing
- * @arguments: have the commend
- *
- * Return: i on success
- */
-int launch(char **arguments)
-{
-	pid_t pid;
-	int stat;
 
-	pid = fork();
-	if (pid == 0)
-	{
-		if (execvp(arguments[0], arguments) == -1)
-		{
-			perror("error in new_process: child process");
-		}
-		exit(EXIT_FAILURE);
-	}
-	else if (pid < 0)
-	{
-		perror("error in new_process: forking");
-	}
-	else
-	{
-		do {
-			waitpid(pid, &stat, WUNTRACED);
-		} while (!WIFEXITED(stat) && !WIFSIGNALED(stat));
-	}
-	return (-1);
+/**
+ * launch - Function that takes charge of processing.
+ * @args: Command arguments.
+ *
+ * Return: -1 on failure.
+ */
+int launch(char **args)
+{
+    pid_t child_pid;
+    int status;
+
+    child_pid = fork();
+    if (child_pid == 0)
+    {
+        if (execvp(args[0], args) == -1)
+        {
+            perror("Error in launch: child process");
+        }
+        exit(EXIT_FAILURE);
+    }
+    else if (child_pid < 0)
+    {
+        perror("Error in launch: forking");
+    }
+    else
+    {
+        do {
+            waitpid(child_pid, &status, WUNTRACED);
+        } while (!WIFEXITED(status) && !WIFSIGNALED(status));
+    }
+    return -1;
 }

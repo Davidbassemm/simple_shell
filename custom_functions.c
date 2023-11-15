@@ -1,96 +1,107 @@
 #include "main.h"
+
 /**
- * custom_cd - function my cd
- * @arguments: have the command
+ * custom_cd - Custom implementation of 'cd' command.
+ * @arguments: Command arguments.
  *
- * Return: 1 on success
+ * Return: 1 on success, -1 on failure.
  */
 int custom_cd(char **arguments)
 {
-	if (arguments[1] == NULL)
-	{
-		fprintf(stderr, "expected argument to 'cd'\n");
-	}
-	else
-	{
-		if (chdir(arguments[1]) != 0)
-		{
-			perror("error in my_cd");
-		}
-	}
-	return (-1);
+    if (arguments[1] == NULL)
+    {
+        fprintf(stderr, "Expected argument to 'cd'\n");
+    }
+    else
+    {
+        if (chdir(arguments[1]) != 0)
+        {
+            perror("Error in custom_cd");
+        }
+        else
+        {
+            return 1;
+        }
+    }
+    return -1;
 }
+
 #include "main.h"
+
 /**
- * custom_env - function that prints env variable
- * @arguments: arguments
+ * custom_env - Custom function that prints environment variables.
+ * @arguments: Command arguments.
  *
- * Return: 1 on success 0 in otherwise
+ * Return: 1 on success, 0 otherwise.
  */
 int custom_env(char **arguments)
 {
-	int c = 0;
-	(void)(**arguments);
+    int c = 0;
+    (void)(**arguments);
 
-	while (environ[c])
-	{
-		write(STDOUT_FILENO, environ[c], strlen(environ[c]));
-		write(STDOUT_FILENO, "\n", 1);
-		c++;
-	}
-	return (-1);
-
+    while (environ[c])
+    {
+        write(STDOUT_FILENO, environ[c], strlen(environ[c]));
+        write(STDOUT_FILENO, "\n", 1);
+        c++;
+    }
+    return -1;
 }
+
 #include "main.h"
+
 /**
- * custom_exit - function
- * @arguments: have the commit
+ * custom_exit - Custom exit function.
+ * @arguments: Command arguments.
  *
- * Return: 0
+ * Return: 0 if no argument, or the exit status specified.
  */
 int custom_exit(char **arguments)
 {
-	if (arguments[1])
-	{
-		return (atoi(arguments[1]));
-	}
-	else
-	{
-	return (0);
-	}
+    if (arguments[1])
+    {
+        return atoi(arguments[1]);
+    }
+    else
+    {
+        return 0;
+    }
 }
+
 #include "main.h"
+
 /**
- * custom_help - function helps the user
- * @arguments: have the command
+ * custom_help - Custom help function.
+ * @arguments: Command arguments.
  *
- * Return: 1 on success
+ * Return: 1 on success.
  */
 int custom_help(char **arguments)
 {
-	int c;
+    int c;
 
+    char *builtin[13] = {
+        "cd",
+        "env",
+        "help",
+        "exit"
+    };
+    char *descriptions[] = {
+        "Change the current directory",
+        "Display information about built-in commands",
+        "Exit the shell"
+    };
 
-	char *bulitin[13] = {
-		"cd",
-		"env",
-		"help",
-		"exit"
-	};
-	char *des[] = {
-		"change the current dir",
-		"display inf about the blitin comd",
-		"exit the shell:"
-		};
-	(void)arguments;
-	printf("simple shell\n");
-	printf("------------\n");
-	printf("A basic shell imolementation.\n\n");
-	printf("Duilt-in cmd:\n");
+    (void)arguments;
+    printf("Simple Shell\n");
+    printf("------------\n");
+    printf("A basic shell implementation.\n\n");
+    printf("Built-in commands:\n");
 
-	for (c = 0 ; c < num_bulitin(bulitin) ; c++)
-	{
-		printf(" %s - %s\n", bulitin[c], des[c]);
-	}
-	return (1);
+    for (c = 0; c < num_builtin(builtin); c++)
+    {
+        printf(" %s - %s\n", builtin[c], descriptions[c]);
+    }
+    return 1;
 }
+
