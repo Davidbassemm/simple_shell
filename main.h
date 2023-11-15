@@ -10,7 +10,7 @@
 #define EFO 42
 extern char **environ;
 char *read_line(void);
-char **parse_line(char *line);
+char **split_line(char *line);
 int launch(char **arguments);
 int custom_cd(char **arguments);
 int custom_env(char **arguments);
@@ -18,8 +18,8 @@ int custom_help(char **arguments);
 int custom_exit(char **arguments);
 int num_builtin(char **bulitin);
 int execute(char **arguments);
-void interactive(void);
-void non_interactive(void);
+void inter(void);
+void non_inter(void);
 char *read_stream(void);
 
 
